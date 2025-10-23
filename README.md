@@ -1,4 +1,4 @@
-# Co$^2$FuLL
+# Co2FuLL
 This repository provides the **code** and **dataset** for our ASE 2025 paper:
 
 > **Chaopeng Dong, Jingdong Guo, Shouguo Yang, Yi Li, Dongliang Fang, Yang Xiao, Yongle Chen, Limin Sun.**
@@ -31,7 +31,7 @@ The project is organized as follows:
 
 ## ⚙️ Environment Setup
 
-Before running Co$^2$FuLL, please ensure your environment meets the following requirements:
+Before running Co2FuLL, please ensure your environment meets the following requirements:
 
 * **Operating System**
   The experiments were conducted on **Ubuntu 22.04 LTS**.
@@ -97,17 +97,23 @@ Feature extraction involves generating various binary representations and metada
 
 4. **Generate model embeddings**
    Follow the corresponding repositories to generate embeddings for your test functions:
-
+    
    * [GMN](https://github.com/google-deepmind/deepmind-research/blob/master/graph_matching_networks/graph_matching_networks.ipynb)
    * [Trex](https://github.com/CUMLSec/trex)
    * [Asteria](https://github.com/Asteria-BCSD/Asteria)
    * [HermesSim](https://github.com/NSSL-SJTU/HermesSim)
+    > The embedding file is expected to store a dictionary mapping each function to its corresponding embedding vector. Each key should follow the format binary@function_address. An example is provided below.
+    ```json
+    {
+   "lightning-2.1.2_gcc-4.9.4_arm_64_O3_liblightning.so.1.0.0.elf.strip@0x60a8": [1.12573838e+00 -8.25750828e-03, ..., 3.89225304e-01]
+   }
+    ```
 
 ---
 
 ### 🧭 Step 2: Candidate Retrieval
 
-In this stage, Co$^2$FuLL fuses **contextual** and **content-based** similarities to retrieve semantically equivalent functions from a large function pool.
+In this stage, Co2FuLL fuses **contextual** and **content-based** similarities to retrieve semantically equivalent functions from a large function pool.
 
 We explore:
 
@@ -139,7 +145,7 @@ options:
 
 ### 🤖 Step 3: LLM Verification
 
-After retrieving top-K candidates, Co$^2$FuLL leverages **Large Language Models (LLMs)** to verify and confirm the true match.
+After retrieving top-K candidates, Co2FuLL leverages **Large Language Models (LLMs)** to verify and confirm the true match.
 This verification step improves precision and interpretability.
 
 In our experiments, we evaluate:
