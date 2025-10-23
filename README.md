@@ -43,13 +43,13 @@ Before running Co$^2$FuLL, please ensure your environment meets the following re
 
     ```bash
     conda env create -f environment.yml
-    conda activate co2full
+    conda activate co2full-public
     ```
 
     Alternatively, you may create a clean environment manually and install required dependencies.
       - Apart from that, install the necessary packages under your **IDA python environment**
       ```shell
-    pip install cptools networkx loguru
+    pip install cptools networkx loguru --target="/path/to/IDA Python/DIR/"
     ```
 * **IDA-Pro**
   We use **IDA-Pro v7.5** for binary feature extraction.
