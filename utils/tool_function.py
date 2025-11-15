@@ -67,9 +67,9 @@ def execute_by_multi_threads(method, objects, n_jobs=1):
                 yield future.result()
 
 
-def load_bin_idb():
+def load_bin_idb(path):
     datas = []
-    for proj_path in ROOT_PATH.joinpath("DBs/Binkit-1.0-normal-strip-binaries").iterdir():
+    for proj_path in Path(path).iterdir():
         for bin_path in proj_path.iterdir():
             _, compiler, arch, bit, optim, *file = bin_path.stem.split("_")
             if bit == "32":

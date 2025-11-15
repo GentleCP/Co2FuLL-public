@@ -50,15 +50,20 @@ def export_idb(bin_path, idb_path):
         }
 
 
-def main():
+def main(args):
     """Launch IDA Pro and export the IDBs."""
     if not IDA_PATH.exists():
         logger.error(f"[!] Error: IDA_PATH:{IDA_PATH} not valid, Use 'export IDA_PATH=/full/path/to/idat64'")
         return
     base_bin_path = Path(sys.argv[1])
     logger.critical(f"[export idb] base_bin_path:{base_bin_path}")
-    params = load_bin_idb()
+    params = load_bin_idb(args.path)
     execute_by_multi_process(export_idb, params, n_jobs=N_JOBS)
 
 if __name__ == "__main__":
-    main()
+    import argparse
+    ap = argparse.ArgumentParser(description="Launch IDA Pro and export the IDBs.")
+    ap.add_argument('-p', '--path', type=str, default="DBs/Binkit-1.0-normal-strip-binaries",
+                    help="Path of directory to store the binary files")
+    args = ap.parse_args()
+    main(args)

@@ -15,8 +15,8 @@ sys.path.append(str(ROOT_PATH))
 from settings import IDA_PATH, N_JOBS, IDA32_PATH
 from utils.tool_function import execute_by_multi_process, load_bin_idb
 
-IDA_PLUGIN = CUR_PATH.joinpath('IDA_code.py')
-LOG_PATH = CUR_PATH.joinpath("IDA_call_graph.log")
+IDA_PLUGIN = CUR_PATH.joinpath('IDA_DG.py')
+LOG_PATH = CUR_PATH.joinpath("IDA_DG.log")
 logger.info(f"IDA_PLUGIN: {IDA_PLUGIN}")
 logger.info(f"Log saved in {LOG_PATH}")
 
@@ -40,13 +40,33 @@ def gen_dependency_graph(idb_path, save_path):
     return exe_res
 
 
-def main():
+def main(args):
     if not IDA_PATH.exists():
         logger.error(f"[!] Error: IDA_PATH:{IDA_PATH} not valid, Use 'export IDA_PATH=/full/path/to/idat64'")
         return
-    params = load_bin_idb()
+    params = []
+    for item in tqdm(load_bin_idb(args.path)):
+        idb_path = item['idb_path']
+        suffix = idb_path.suffix
+        org_dataset = idb_path.parts[1]
+        save_path = Path(
+            str(idb_path).replace('IDBs', 'DBs').replace(org_dataset, f'{org_dataset}-DGs').replace(suffix,
+                                                                                                            '.dg'))
+        if save_path.exists():
+            continue
+        save_path.parent.mkdir(parents=True, exist_ok=True)
+        params.append({
+            'idb_path': idb_path,
+            'save_path': save_path,
+        })
     execute_by_multi_process(gen_dependency_graph, params, n_jobs=N_JOBS)
 
 
 if __name__ == '__main__':
-    main()
+    import argparse
+    ap = argparse.ArgumentParser(description="Generate dependency graphs based on generated idbs.")
+    ap.add_argument('-p', '--path', type=str, default="DBs/Binkit-1.0-normal-strip-binaries",
+                    help="Path of directory to store the binary files")
+    args = ap.parse_args()
+    main(args)
+
