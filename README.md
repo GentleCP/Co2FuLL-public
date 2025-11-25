@@ -13,7 +13,7 @@ The project is organized as follows:
 
 * **`DBs/`**
   Contains dataset lists, stripped binaries, and other essential data files.
-  You can download the dataset from [figshare](https://figshare.com/account/articles/30426451).
+  You can download the dataset from [figshare](https://figshare.com/articles/dataset/The_dataset_of_Co_sup_2_sup_FuLL_paper_accepted_by_ASE_25/30426451).
 
 * **`core/`**
   Includes the core implementation, such as context construction, feature extraction, and LLM integration logic.
