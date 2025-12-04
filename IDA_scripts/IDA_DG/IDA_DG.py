@@ -90,7 +90,7 @@ class IEViewer(object):
 
 def _add_node_edge(call_graph, callee_ea, called_ea):
     caller = idaapi.get_func(called_ea)
-    if caller is not None and caller.ea != callee_ea:
+    if caller is not None and caller.start_ea != callee_ea:
         if hex(caller.start_ea) not in call_graph.nodes:
             call_graph.add_node(hex(caller.start_ea),
                                 value=idaapi.get_func_name(caller.start_ea),
