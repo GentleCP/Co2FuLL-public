@@ -70,14 +70,10 @@ class ContextGener(object):
 
         for (ref_value, ref_type), node2ac_dist in ac2func_ea_dist.items():
             if ref_value.startswith('LEAF'):
-                key = ("LEAF", ref_type)
-            else:
-                key = (ref_value, ref_type)
+                continue
+            key = (ref_value, ref_type)
             for func_ea, ac_dist in node2ac_dist.items():
-                if key == ("LEAF", ref_type) and key in func_ea2ac_dist[func_ea].keys():
-                    func_ea2ac_dist[func_ea][key] = min(func_ea2ac_dist[func_ea][key], ac_dist)
-                else:
-                    func_ea2ac_dist[func_ea][key] = ac_dist
+                func_ea2ac_dist[func_ea][key] = ac_dist
         return func_ea2ac_dist
 
     def get_dist(self, dg):

@@ -120,7 +120,7 @@ def cal_sim_rank_by_exp(exp, model2embed_all, bin2contexts):
         dist_options = ['full', 'direct_only', 'str_only', 'import_only']
     else:
         dist_options = ['full']
-
+        
     for method in dist_options:
         logger.info(f'[{exp}] calculate context similarity for {method}')
         df = calculate_context_sim_rank(df, key=method, bin2contexts=bin2contexts)
